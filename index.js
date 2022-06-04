@@ -42,6 +42,7 @@ async function run() {
       console.log("DB CONNECTED");
 
       const userCollection = client.db('luxury').collection('user');
+      const serviceCollection = client.db('luxury').collection('services');
 
 
       app.put('/user/:email', async(req, res) =>{
@@ -62,6 +63,14 @@ async function run() {
 
           res.send({ result, token }); 
 
+      })
+
+      app.post('/service', async(req, res) =>{
+          const service = req.body;
+          console.log(service);
+          const result = await serviceCollection.insertOne(service);
+
+          res.send(result);
       })
 
       
